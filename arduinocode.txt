@@ -1,0 +1,23 @@
+String message;
+int lightout = 8;
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(lightout,OUTPUT);
+}
+
+void loop()
+{
+  if(Serial.available()>0) // if anything is available in the serial monitor,
+  {message = Serial.readString();
+  if(message=="l-on")
+  {
+    digitalWrite(lightout,HIGH);
+  }
+  else if(message=="l-off")
+  {
+    digitalWrite(lightout,LOW);
+  }
+  }
+}
