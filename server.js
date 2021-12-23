@@ -13,7 +13,11 @@ io.on('connection', (socket) => {
     //testing
     console.log("Connect "+String(socket.id))
     socket.on('run', (msg) => {
-      cmdline(msg);
+        if(msg!=[''])
+        {
+        console.log("msg:"+msg);
+      cmdline(`python middleman.py "${msg}"`);
+        }
     });
 
     function cmdline(command){
@@ -23,7 +27,7 @@ io.on('connection', (socket) => {
           console.error(`exec error: ${error}, ${stderr}`);
           io.to(socket.id).emit("subprocess_out","Error");
         }else{
-        console.log(stdout);
+        console.log("stdout:"+stdout);
         io.to(socket.id).emit("subprocess_out","Success");
         }
       });

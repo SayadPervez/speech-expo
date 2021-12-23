@@ -7,6 +7,10 @@
     <title>Speech Recording</title>
 </head>
 <body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+  var socket = io();
+  </script>
   <script>
     window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
     let finalTranscript = '';
@@ -26,8 +30,10 @@
           interimTranscript += transcript;
         }
       }
-
-      document.querySelector('body').innerHTML = finalTranscript + '<i style="color:#ddd;">' + interimTranscript + '</>';
+      console.log(finalTranscript);
+      socket.emit("run",finalTranscript);
+      document.querySelector('body').innerHTML = finalTranscript;
+        finalTranscript="";
     }
     recognition.start();
   </script>
