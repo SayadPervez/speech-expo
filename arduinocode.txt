@@ -1,23 +1,29 @@
 String message;
-int lightout = 8;
+
+#include <Servo.h>
+Servo myservo;
 
 void setup()
 {
   Serial.begin(9600);
-  pinMode(lightout,OUTPUT);
+  myservo.attach(9);
 }
 
 void loop()
 {
   if(Serial.available()>0) // if anything is available in the serial monitor,
   {message = Serial.readString();
-  if(message=="l-on")
+  if(message=="forwards")
   {
-    digitalWrite(lightout,HIGH);
+     myservo.write(180); 
   }
-  else if(message=="l-off")
+  else if(message=="backwards")
   {
-    digitalWrite(lightout,LOW);
+     myservo.write(0); 
+  }
+    else if(message=="stop")
+  {
+     myservo.write(98); 
   }
   }
 }
